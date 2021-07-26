@@ -4,7 +4,7 @@ import {nanoid} from "nanoid";
 import Cell from "../Cell/Cell";
 import './PlayingField.css';
 
-const PlayingField = () => {
+const PlayingField = props => {
     const [cells, setCells] = useState(makeCells());
 
     function getRingIndex() {
@@ -33,6 +33,15 @@ const PlayingField = () => {
         })
     };
 
+    const handleOnClickCell = id => {
+        if(cells[id].isOpen) {
+            return;
+        }
+
+        openCell(id);
+        props.onCellClick();
+    };
+
     return (
         <div className="playing-field">
             {Object.values(cells).map(cell => (
@@ -40,7 +49,7 @@ const PlayingField = () => {
                     key={cell.id}
                     isOpen={cell.isOpen}
                     hasItem={cell.hasItem}
-                    onClick={() => openCell(cell.id)}
+                    onClick={() => handleOnClickCell(cell.id)}
                 />
             ))}
         </div>
