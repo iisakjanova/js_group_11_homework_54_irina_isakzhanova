@@ -3,10 +3,13 @@ import {nanoid} from "nanoid";
 
 import PlayingField from "./components/PlayingField/PlayingField";
 import Counter from "./components/Counter";
+import ButtonReset from "./components/ButtonReset";
 
 const App = () => {
     const [cells, setCells] = useState(makeCells());
     const [tries, setTries] = useState(0);
+    const [gameComplete, setGameComplete] = useState(false);
+    const [gameMessage, setGameMessage] = useState('');
 
     function getRingIndex() {
         return Math.floor(Math.random() * 36);
@@ -18,7 +21,7 @@ const App = () => {
 
         for (let i = 0; i < 36; i++) {
             const cellId = nanoid();
-            cellsObj[cellId] = {id: cellId, isOpen: false, hasItem: i === ringIndex}
+            cellsObj[cellId] = {id: cellId, isOpen: false, hasRing: i === ringIndex}
         }
 
         return cellsObj;
@@ -39,12 +42,27 @@ const App = () => {
     };
 
     const handleOnClickCell = id => {
+        if (gameComplete) {
+            return;
+        }
+
         if(cells[id].isOpen) {
             return;
         }
 
         openCell(id);
         incrementTries();
+
+        if(cells[id].hasRing) {
+            setGameComplete(true);
+            setGameMessage('Congratulations! The ring is found!')
+        }
+    };
+
+    const handleOnClickReset = () => {
+        setCells(makeCells());
+        setTries(0);
+        setGameComplete(false);
     };
 
     return (
@@ -56,6 +74,12 @@ const App = () => {
             <Counter
                 tries={tries}
             />
+            <ButtonReset
+                onClick={() => handleOnClickReset()}
+            />
+            <p>
+                <b>{gameMessage}</b>
+            </p>
         </div>
     )
 };

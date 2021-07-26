@@ -3,13 +3,13 @@ import './Cell.css';
 
 const Cell = props => {
     const cellClasses = ['cell'];
-    let item = '';
+    let symbol = '';
 
     if(props.isOpen) {
         cellClasses.push('open-cell');
 
-        if (props.hasItem) {
-            item = 'O';
+        if (props.hasRing) {
+            symbol = 'O';
         }
     }
 
@@ -17,7 +17,7 @@ const Cell = props => {
         <div className={cellClasses.join(' ')}
              onClick={props.onClick}
         >
-            {item}
+            {symbol}
         </div>
     );
 };

@@ -9,7 +9,7 @@ const PlayingField = props => {
                 <Cell
                     key={cell.id}
                     isOpen={cell.isOpen}
-                    hasItem={cell.hasItem}
+                    hasRing={cell.hasRing}
                     onClick={() => props.onCellClick(cell.id)}
                 />
             ))}
