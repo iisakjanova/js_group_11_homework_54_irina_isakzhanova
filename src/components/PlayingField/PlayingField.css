@@ -1,0 +1,12 @@
+.playing-field {
+    padding: 20px;
+    width: 315px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid grey;
+}
+
+.cell {
+    margin: 1px;
+}
