@@ -4,12 +4,17 @@ import {nanoid} from "nanoid";
 import PlayingField from "./components/PlayingField/PlayingField";
 import Counter from "./components/Counter";
 import ButtonReset from "./components/ButtonReset";
+import "./App.css";
 
 const App = () => {
     const [cells, setCells] = useState(makeCells());
     const [tries, setTries] = useState(0);
     const [gameComplete, setGameComplete] = useState(false);
-    const [gameMessage, setGameMessage] = useState('');
+    const [gameMessages, setGameMessages] = useState({
+        title: `Let's play!`,
+        start: 'Open cells to find the ring.',
+        finish: '',
+    });
 
     function getRingIndex() {
         return Math.floor(Math.random() * 36);
@@ -55,7 +60,11 @@ const App = () => {
 
         if(cells[id].hasRing) {
             setGameComplete(true);
-            setGameMessage('Congratulations! The ring is found!')
+            setGameMessages({
+                title: '',
+                start: '',
+                finish: 'Congratulations! The ring is found!',
+            });
         }
     };
 
@@ -63,10 +72,21 @@ const App = () => {
         setCells(makeCells());
         setTries(0);
         setGameComplete(false);
+        setGameMessages({
+            title: `Let's play!`,
+            start: 'Open cells to find the ring.',
+            finish: '',
+        });
     };
 
     return (
         <div className="App">
+            <p>
+                {gameMessages.title}
+            </p>
+            <p>
+                {gameMessages.start}
+            </p>
             <PlayingField
                 cells={Object.values(cells)}
                 onCellClick={handleOnClickCell}
@@ -78,7 +98,7 @@ const App = () => {
                 onClick={() => handleOnClickReset()}
             />
             <p>
-                <b>{gameMessage}</b>
+                <b>{gameMessages.finish}</b>
             </p>
         </div>
     )
