@@ -5,6 +5,7 @@
     flex-wrap: wrap;
     justify-content: center;
     border: 1px solid grey;
+    cursor: pointer;
 }
 
 .cell {

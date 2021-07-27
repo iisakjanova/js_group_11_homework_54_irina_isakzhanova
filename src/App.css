@@ -6,3 +6,7 @@
 .playing-field {
     margin: 0 auto;
 }
+
+.btn-reset {
+    cursor: pointer;
+}

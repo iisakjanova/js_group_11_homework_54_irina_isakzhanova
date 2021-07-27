@@ -39,7 +39,7 @@ const App = () => {
                 ...cells[id],
                 isOpen: true
             }
-        })
+        });
     };
 
     const incrementTries = () => {
